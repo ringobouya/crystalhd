@@ -512,11 +512,13 @@ void crystalhd_flea_runtime_power_up(struct crystalhd_hw *hw)
 #endif
 
 	/*printk("RT Power Up Flea Complete\n"); */
-
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,17,0)
+	currTick = rdtsc_ordered();
+#else
 	rdtscll(currTick);
-
+#endif
 	hw->TickSpentInPD += (currTick - hw->TickStartInPD);
-
+	
 	temp_64 = (hw->TickSpentInPD)>>24;
 	TickSpentInPD_Hi = (uint32_t)(temp_64);
 	TickSpentInPD_Hi_f = (long)TickSpentInPD_Hi;
@@ -735,8 +737,12 @@ void crystalhd_flea_runtime_power_dn(struct crystalhd_hw *hw)
 	/*printk("RT Power Down Flea Complete\n"); */
 
 	/* Measure how much time we spend in idle */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,17,0)
+	hw->TickStartInPD = rdtsc_ordered();
+#else
 	rdtscll(hw->TickStartInPD);
-
+#endif
+	
 	return;
 }
 
