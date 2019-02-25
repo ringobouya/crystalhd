@@ -1,6 +1,6 @@
+I confirmed with Xubuntu 18.04LTS.
 
-
-Original Document link: https://github.com/dbason/crystalhd/edit/master/README.md
+Original docs.: https://github.com/dbason/crystalhd/edit/master/README.md
 
 # Requiremets
     sudo apt-get install checkinstall
